@@ -55,7 +55,6 @@ print('ret func_many_args: ', test.func_many_args(15, 18.1617, 'X'.encode('utf-8
 
 print(); sys.stdout.flush()
 
-# quit(0)
 ##
 # Работа с переменными
 ##
@@ -84,7 +83,6 @@ test.func_print_globals()
 
 print(); sys.stdout.flush()
 
-# quit(0)
 ##
 # Работа со структурами
 ##
@@ -134,7 +132,6 @@ else:
 
 print()
 
-# quit(0)
 ##
 # Работа с указателями
 ##
@@ -155,7 +152,6 @@ print(left, right, result, res.contents); sys.stdout.flush()
 
 print(); sys.stdout.flush()
 
-# quit(0)
 ##
 # Работа с массивами
 ##

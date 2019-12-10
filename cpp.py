@@ -48,7 +48,6 @@ print('ret test_get_c: ', testcpp.test_get_c(test)); sys.stdout.flush()
 
 print(); sys.stdout.flush()
 
-# quit(0)
 ##
 # Работа с вектором
 ##
@@ -85,7 +84,6 @@ print('vector[3]: {0:.3f}, vector_one_more[3]: {1:.3f}'.format(
     testcpp.test_vector_index(vector, 3), testcpp.test_vector_index(vector_one_more, 3)
 )); sys.stdout.flush()
 
-# quit(0)
 ##
 # Работа с методами
 ##
@@ -114,44 +112,42 @@ testcpp.test_del(test)
 
 print(); sys.stdout.flush()
 
-# quit(0)
 ##
 # IO операции
 ##
 #
-# # Указываем, что функция возвращает int
-# testcpp.test_read_file.restype = ctypes.POINTER(ctypes.c_int)
-# # Указываем, что функция принимает аргумент char * и unsigned long long
-# testcpp.test_read_file.argtypes = [ctypes.c_char_p, ctypes.c_ulonglong]
-#
-# # Указываем, что функция принимает аргумент int *
-# testcpp.test_int_array_delete.argtypes = [ctypes.POINTER(ctypes.c_int)]
-#
-# start_cpp_read = time.time()
-# data_ptr = testcpp.test_read_file('data.txt'.encode('utf-8'), 10_000_000)
-# array_from_data = np.ctypeslib.as_array(data_ptr, shape=[10_000, 1_000])
-# print('Verify last value: {0}'.format(array_from_data[-1, -1]))
-# total_time_cpp_read = time.time() - start_cpp_read
-#
-# testcpp.test_int_array_delete(data_ptr)
-#
-#
-# start_python_read = time.time()
-# array = np.empty([10_000, 1_000], dtype=np.int)
-#
-# with open('data.txt', 'r') as file:
-#     for idx, line in enumerate(file):
-#         for jdx, value in enumerate(line.strip().split(' ')):
-#             array[idx, jdx] = int(value)
-#
-# array_from_file = array.reshape([10_000, 1_000])
-# print('Verify last value: {0}'.format(array_from_file[-1, -1]))
-# total_time_python_read = time.time() - start_python_read
-#
-# print('C function time: {0:.3f}'.format(total_time_cpp_read))
-# print('Pure Python time: {0:.3f}'.format(total_time_python_read))
+# Указываем, что функция возвращает int
+testcpp.test_read_file.restype = ctypes.POINTER(ctypes.c_int)
+# Указываем, что функция принимает аргумент char * и unsigned long long
+testcpp.test_read_file.argtypes = [ctypes.c_char_p, ctypes.c_ulonglong]
 
-# quit(0)
+# Указываем, что функция принимает аргумент int *
+testcpp.test_int_array_delete.argtypes = [ctypes.POINTER(ctypes.c_int)]
+
+start_cpp_read = time.time()
+data_ptr = testcpp.test_read_file('data.txt'.encode('utf-8'), 10_000_000)
+array_from_data = np.ctypeslib.as_array(data_ptr, shape=[10_000, 1_000])
+print('Verify last value: {0}'.format(array_from_data[-1, -1]))
+total_time_cpp_read = time.time() - start_cpp_read
+
+testcpp.test_int_array_delete(data_ptr)
+
+
+start_python_read = time.time()
+array = np.empty([10_000, 1_000], dtype=np.int)
+
+with open('data.txt', 'r') as file:
+    for idx, line in enumerate(file):
+        for jdx, value in enumerate(line.strip().split(' ')):
+            array[idx, jdx] = int(value)
+
+array_from_file = array.reshape([10_000, 1_000])
+print('Verify last value: {0}'.format(array_from_file[-1, -1]))
+total_time_python_read = time.time() - start_python_read
+
+print('C function time: {0:.3f}'.format(total_time_cpp_read))
+print('Pure Python time: {0:.3f}'.format(total_time_python_read))
+
 ##
 #   libc
 ##
@@ -164,12 +160,11 @@ libc.fflush(None)
 int_val = ctypes.c_int()
 float_val = ctypes.c_float()
 str_val = ctypes.create_string_buffer(1024)
-# libc.scanf('%d-%f-%s'.encode('utf-8'), ctypes.byref(int_val), ctypes.byref(float_val), str_val)
-# print(int_val, float_val, str_val.value.decode('utf-8')); sys.stdout.flush()
+libc.scanf('%d-%f-%s'.encode('utf-8'), ctypes.byref(int_val), ctypes.byref(float_val), str_val)
+print(int_val, float_val, str_val.value.decode('utf-8')); sys.stdout.flush()
 
 print(); sys.stdout.flush()
 
-# quit(0)
 ##
 #   Callback functions
 ##
